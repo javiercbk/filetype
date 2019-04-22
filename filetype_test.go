@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/h2non/filetype/types"
+	"github.com/javiercbk/filetype/types"
 )
 
 func TestIs(t *testing.T) {
@@ -147,11 +147,11 @@ func TestMatchWriter(t *testing.T) {
 			w, err = io.Copy(mw, test.reader)
 		}
 		if err != nil {
-			t.Fatalf("Error matching %s error: %v", test.mime, err)
+			t.Fatalf("Error matching %s error: %s", test.mime, err)
 		}
 		mimeType, err = mw.Match()
 		if err != test.err {
-			t.Fatalf("Invalid error match: %v, expected %s", err, test.err)
+			t.Fatalf("Invalid error match: %s, expected %s", err, test.err)
 		}
 		if mimeType.MIME.Value != test.mime {
 			t.Fatalf("Invalid mime match: %s, expected %s", mimeType.MIME.Value, test.mime)
@@ -177,7 +177,7 @@ func TestMatchWriterBuffer(t *testing.T) {
 	mw := NewMatcherWriter()
 	_, err := io.Copy(mw, reader)
 	if err != nil {
-		t.Fatalf("error copying bytes to reader %v", err)
+		t.Fatalf("error copying bytes to reader %s", err)
 	}
 	bufLen := len(mw.buf)
 	if bufLen != maxBufSize {
